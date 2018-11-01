@@ -175,4 +175,27 @@ class TriOutLineStepView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : TriOutLineStepView) {
+
+        private val animator : Animator = Animator(view)
+
+        private val tols : TriOutLineStep = TriOutLineStep(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#212121"))
+            tols.draw(canvas, paint)
+            animator.animate {
+                tols.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun startUpdating(cb : () -> Unit) {
+            tols.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
