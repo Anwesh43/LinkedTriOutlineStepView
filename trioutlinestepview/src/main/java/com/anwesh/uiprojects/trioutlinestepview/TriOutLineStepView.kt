@@ -4,6 +4,7 @@ package com.anwesh.uiprojects.trioutlinestepview
  * Created by anweshmishra on 01/11/18.
  */
 
+import android.app.Activity
 import android.view.View
 import android.view.MotionEvent
 import android.content.Context
@@ -198,6 +199,14 @@ class TriOutLineStepView(ctx : Context) : View(ctx) {
             tols.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) : TriOutLineStepView {
+            val view : TriOutLineStepView = TriOutLineStepView(activity)
+            activity.setContentView(view)
+            return view 
         }
     }
 }
