@@ -15,6 +15,8 @@ import android.util.Log
 
 val nodes : Int = 5
 val sides : Int = 3
+val BG_COLOR : Int = Color.parseColor("#BDBDBD")
+val COLOR : Int = Color.parseColor("#673AB7")
 
 fun Float.divideScale(j : Int, n : Int) : Float = Math.min(1f/ n, Math.max(0f, this - (1f / n) * j))  * n
 
@@ -26,7 +28,7 @@ fun Canvas.drawTOLSNode(i : Int, scale : Float, paint : Paint) {
     val deg : Float = 360f / sides
     paint.strokeWidth = Math.min(w, h) / 60
     paint.strokeCap = Paint.Cap.ROUND
-    paint.color = Color.parseColor("#673AB7")
+    paint.color = COLOR
     save()
     translate(i * gap + gap, h/2)
     for (j in 0..(sides - 1)) {
@@ -192,7 +194,7 @@ class TriOutLineStepView(ctx : Context) : View(ctx) {
         private val tols : TriOutLineStep = TriOutLineStep(0)
 
         fun render(canvas : Canvas, paint : Paint) {
-            canvas.drawColor(Color.parseColor("#212121"))
+            canvas.drawColor(BG_COLOR)
             tols.draw(canvas, paint)
             animator.animate {
                 tols.update {i, scl ->
