@@ -45,6 +45,12 @@ class TriOutLineStepView(ctx : Context) : View(ctx) {
 
     private val renderer : Renderer = Renderer(this)
 
+    var onAnimationListener : OnAnimationListener? = null
+
+    fun addOnAnimationListener(onComplete : (Int) -> Unit, onReset : (Int) -> Unit) {
+        onAnimationListener = OnAnimationListener(onComplete, onReset)
+    }
+
     override fun onDraw(canvas : Canvas) {
         renderer.render(canvas, paint)
     }
@@ -191,6 +197,10 @@ class TriOutLineStepView(ctx : Context) : View(ctx) {
             animator.animate {
                 tols.update {i, scl ->
                     animator.stop()
+                    when (scl) {
+                        0f -> view.onAnimationListener?.onComplete?.invoke(i)
+                        1f -> view.onAnimationListener?.onReset?.invoke(i)
+                    }
                 }
             }
         }
@@ -206,7 +216,9 @@ class TriOutLineStepView(ctx : Context) : View(ctx) {
         fun create(activity : Activity) : TriOutLineStepView {
             val view : TriOutLineStepView = TriOutLineStepView(activity)
             activity.setContentView(view)
-            return view 
+            return view
         }
     }
+
+    data class OnAnimationListener(var onComplete : (Int) -> Unit, var onReset : (Int) -> Unit)
 }
