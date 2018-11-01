@@ -200,8 +200,8 @@ class TriOutLineStepView(ctx : Context) : View(ctx) {
                 tols.update {i, scl ->
                     animator.stop()
                     when (scl) {
-                        0f -> view.onAnimationListener?.onComplete?.invoke(i)
-                        1f -> view.onAnimationListener?.onReset?.invoke(i)
+                        1f -> view.onAnimationListener?.onComplete?.invoke(i)
+                        0f -> view.onAnimationListener?.onReset?.invoke(i)
                     }
                 }
             }
